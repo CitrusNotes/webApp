@@ -1,0 +1,30 @@
+[
+    {
+      "name": "Home",
+      "type": "folder",
+      "contents": [{
+        "name": "Fun",
+        "type": "folder",
+        "contents": [
+          {
+            "name": "folder2",
+            "type": "folder",
+            "contents": [
+              
+            ]
+          },
+          {
+            "name": "folder3",
+            "type": "folder",
+            "contents": [
+              
+            ]
+          }
+        ]},
+        {
+          "name": "temp",
+          "type": "pdf"
+        }
+      ]
+    }
+  ]
