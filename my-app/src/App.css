@@ -1,0 +1,109 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: gray;
+}
+
+.page-top-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+  
+.searchbar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  margin: 16px;
+  background-color: black;
+}
+
+.searchbar-image {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 8px;
+  width: 60px;
+  height: 40px;
+}
+
+.searchbar-input {
+  width: 100%;
+  padding-left: 80px;
+  resize: none;
+}
+
+.page-browse {
+  flex: 10;
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-divide {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-directory {
+  flex: 1;
+  border-right: 3px;
+  background-color: gray;
+}
+
+.file-directory-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.file-directory-button {
+  height: 20px;
+
+}
+
+.file-explorer {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.folder-button {
+  height: 30px;
+  width: 100px;
+}
+
+.folder-button-image {
+  height: 20px;
+  width: 20px;
+}
+
+.file-explorer-folders {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.file-explorer-folders-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.file-explorer-files {
+  flex: 3;
+}
+
+.show-file {
+  position: absolute;
+  width: 40%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
