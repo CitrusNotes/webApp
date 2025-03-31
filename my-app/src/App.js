@@ -1,39 +1,38 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import data from "./files.json"
+import data from "./files.json";
 
 let files = data;
 
 function FolderButton({ imageSrc, folderName, currentPath, setCurrentPath }) {
   return (
-    <button className="folder-button" 
+    <button className="folder-button"
       onClick={() => {
         const newPath = [...currentPath, folderName];
         setCurrentPath(newPath);
       }}
-      oncontextmenu={(e) => {
+      onContextMenu={(e) => {
         e.preventDefault();
       }}
     >
-      <img src={imageSrc} alt="Folder Icon" className="folder-button-image"></img>
+      <img src={imageSrc} alt="Folder Icon" className="folder-button-image" />
       {folderName}
     </button>
   );
 }
 
 function FileButton({ fileName, currentPath, filteredFiles }) {
-  const filePath = ["", ...currentPath, fileName + "." + filteredFiles.find(entry => entry.name === fileName).type].join("/")
+  const filePath = ["", ...currentPath, fileName + "." + filteredFiles.find(entry => entry.name === fileName).type].join("/");
   const [showPdf, setShowPdf] = useState(false);
 
   useEffect(() => {
     const handleKeyPressed = (event) => {
-      if(event.key === "Escape") {
+      if (event.key === "Escape") {
         setShowPdf(false);
       }
-    }
+    };
     document.addEventListener("keydown", handleKeyPressed);
-  })
-
+  });
 
   return (
     <div>
@@ -48,13 +47,13 @@ function FileButton({ fileName, currentPath, filteredFiles }) {
   );
 }
 
-function SearchBar( { setFilteredFiles, currentPath } ) {
+function SearchBar({ setFilteredFiles, currentPath }) {
   return (
     <div className="searchbar">
-      <img className="searchbar-image" src="/images/magnifying-glass.png" alt="search"></img>
+      <img className="searchbar-image" src="/images/magnifying-glass.png" alt="search" />
       <textarea className="searchbar-input" placeholder="Search . . ." onChange={(e) => {
         const searchTerm = e.target.value.toLowerCase();
-        filterFiles({setFilteredFiles, searchTerm, currentPath})
+        filterFiles({ setFilteredFiles, searchTerm, currentPath });
       }}></textarea>
     </div>
   );
@@ -62,15 +61,14 @@ function SearchBar( { setFilteredFiles, currentPath } ) {
 
 function Logo() {
   return (
-    <div>  
-      <img src="" alt="Logo"></img>
-      <h>Citrus Notes</h>
+    <div className="logo-container">
+      <img src="/imageLogo.png" alt="Logo" className="logo" />
+      <h1 className="logo-title">Citrus Notes</h1>
     </div>
   );
 }
 
-function filterFiles( { setFilteredFiles, searchTerm, currentPath } ) {
-
+function filterFiles({ setFilteredFiles, searchTerm, currentPath }) {
   const filteredData = getCurrentFolderContents(currentPath)
     .filter(file => file.name.toLowerCase().includes(searchTerm))
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -87,35 +85,34 @@ function getCurrentFolderContents(path) {
     currentFolder = folder || {};
   }
   return currentFolder.contents || [];
-};
+}
 
 function DirectoryHeader({ currentPath, setCurrentPath }) {
   const path = ["Drive", ...currentPath];
-  if(path.length === 1) {
-    return <h>Drive</h>
+  if (path.length === 1) {
+    return <h1>Drive</h1>;
   }
   return (
     <div className="directory-header">
       <button onClick={() => {
-          const previous = currentPath.slice(0, -1);
-          setCurrentPath(previous)
-        }}>Back</button>
-      <CreateFolder/>
-      <h value={path[path.length-1]}></h>
+        const previous = currentPath.slice(0, -1);
+        setCurrentPath(previous);
+      }}>Back</button>
+      <CreateFolder />
+      <h1>{path[path.length - 1]}</h1>
     </div>
   );
-
 }
 
 function CreateFolder() {
-  return(
+  return (
     <button>New Folder</button>
   );
 }
 
 function App() {
   const [filteredFiles, setFilteredFiles] = useState(files);
-  const [currentPath, setCurrentPath] = useState([])
+  const [currentPath, setCurrentPath] = useState([]);
 
   useEffect(() => {
     const folderContents = getCurrentFolderContents(currentPath);
@@ -125,14 +122,14 @@ function App() {
   return (
     <div className="page">
       <div className="page-top-bar">
-        <Logo/>
-        <SearchBar setFilteredFiles={setFilteredFiles} currentPath={currentPath}/>
+        <Logo />
+        <SearchBar setFilteredFiles={setFilteredFiles} currentPath={currentPath} />
       </div>
       <div className="page-browse">
         <div className="file-directory">
           <div className="file-directory-options">
             <button className="file-directory-button">Recent</button>
-            <button className="file-directory-button">Cutrus Drive</button>
+            <button className="file-directory-button">Citrus Drive</button>
           </div>
         </div>
         <div className="file-explorer">
@@ -143,23 +140,25 @@ function App() {
           <div className="file-explorer-folders">
             <div className="file-explorer-folders-column">
               {filteredFiles.map((file) => {
-                if(file.type === "folder") {
-                  return <FolderButton 
+                if (file.type === "folder") {
+                  return <FolderButton
+                    key={file.name}
                     imageSrc="/images/folder.png"
-                    folderName={file.name} 
-                    currentPath={currentPath} 
-                    setCurrentPath={setCurrentPath} 
+                    folderName={file.name}
+                    currentPath={currentPath}
+                    setCurrentPath={setCurrentPath}
                     setFilteredFiles={setFilteredFiles}
                   />
                 }
-                return null
+                return null;
               })}
             </div>
           </div>
           <div className="file-explorer-files">
             {filteredFiles.map((file) => {
-              if(file.type !== "folder") {
+              if (file.type !== "folder") {
                 return <FileButton
+                  key={file.name}
                   fileName={file.name}
                   currentPath={currentPath}
                   filteredFiles={filteredFiles}
