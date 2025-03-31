@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import WelcomePage from "./WelcomePage"; // Import Welcome Page
+import WelcomePage from "./WelcomePage";
+import LoginPage from "./LoginPage";
 import data from "./files.json";
 
 let files = data;
@@ -128,24 +129,31 @@ function CreateFolder() {
 }
 
 function App() {
+  const [showWelcomePage, setShowWelcomePage] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [filteredFiles, setFilteredFiles] = useState(files);
   const [currentPath, setCurrentPath] = useState([]);
-  const [showHomePage, setShowHomePage] = useState(false); // Show Welcome Page first
 
   useEffect(() => {
     const folderContents = getCurrentFolderContents(currentPath);
     setFilteredFiles(folderContents);
   }, [currentPath]);
 
-  // Show the Welcome Page first
-  if (!showHomePage) {
-    return <WelcomePage setShowHomePage={setShowHomePage} />;
+  // Show Welcome Page
+  if (showWelcomePage) {
+    return <WelcomePage setShowWelcomePage={() => setShowWelcomePage(false)} />;
   }
 
+  // Show Login Page if not authenticated
+  if (!isAuthenticated) {
+    return <LoginPage setIsAuthenticated={setIsAuthenticated} />;
+  }
+
+  // Show Home Page after successful login
   return (
     <div className="page">
-      {/* Button to go back to Welcome Page */}
-      <button className="back-to-welcome" onClick={() => setShowHomePage(false)}>
+      {/* Button to log out */}
+      <button className="back-to-welcome" onClick={() => setIsAuthenticated(false)}>
         Logout
       </button>
 
