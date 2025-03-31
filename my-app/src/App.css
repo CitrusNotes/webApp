@@ -15,27 +15,43 @@
 .searchbar {
   position: relative;
   display: flex;
-  flex-direction: row;
-  align-content: space-between;
-  max-width: 1200px;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
   width: 100%;
-  margin: 16px;
-  background-color: black;
-}
-
-.searchbar-image {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 8px;
-  width: 60px;
-  height: 40px;
+  margin: 16px auto;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
 
 .searchbar-input {
   width: 100%;
-  padding-left: 80px;
-  resize: none;
+  padding: 10px 40px 10px 16px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.searchbar-input::placeholder {
+  color: #aaa;
+}
+
+.searchbar-icon {
+  position: absolute;
+  right: 16px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: #888;
+}
+
+.searchbar:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .page-browse {
@@ -123,4 +139,21 @@
 .logo-title {
   font-size: 18px;
   margin: 0;
+}
+
+.back-to-welcome {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-to-welcome:hover {
+  background-color: #e03e3e;
 }

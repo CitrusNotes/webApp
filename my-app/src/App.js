@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
+import WelcomePage from "./WelcomePage"; // Import Welcome Page
 import data from "./files.json";
 
 let files = data;
@@ -50,11 +51,27 @@ function FileButton({ fileName, currentPath, filteredFiles }) {
 function SearchBar({ setFilteredFiles, currentPath }) {
   return (
     <div className="searchbar">
-      <img className="searchbar-image" src="/images/magnifying-glass.png" alt="search" />
-      <textarea className="searchbar-input" placeholder="Search . . ." onChange={(e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        filterFiles({ setFilteredFiles, searchTerm, currentPath });
-      }}></textarea>
+      <textarea
+        className="searchbar-input"
+        placeholder="Search files..."
+        onChange={(e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          filterFiles({ setFilteredFiles, searchTerm, currentPath });
+        }}
+      />
+      <svg
+        className="searchbar-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
     </div>
   );
 }
@@ -113,14 +130,25 @@ function CreateFolder() {
 function App() {
   const [filteredFiles, setFilteredFiles] = useState(files);
   const [currentPath, setCurrentPath] = useState([]);
+  const [showHomePage, setShowHomePage] = useState(false); // Show Welcome Page first
 
   useEffect(() => {
     const folderContents = getCurrentFolderContents(currentPath);
     setFilteredFiles(folderContents);
   }, [currentPath]);
 
+  // Show the Welcome Page first
+  if (!showHomePage) {
+    return <WelcomePage setShowHomePage={setShowHomePage} />;
+  }
+
   return (
     <div className="page">
+      {/* Button to go back to Welcome Page */}
+      <button className="back-to-welcome" onClick={() => setShowHomePage(false)}>
+        Logout
+      </button>
+
       <div className="page-top-bar">
         <Logo />
         <SearchBar setFilteredFiles={setFilteredFiles} currentPath={currentPath} />
