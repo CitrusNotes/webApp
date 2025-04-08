@@ -1,8 +1,8 @@
-import './App.css';
+import './../styling/App.css';
 import React, { useState, useEffect } from "react";
 import WelcomePage from "./WelcomePage";
 import LoginPage from "./LoginPage";
-import data from "./files.json";
+import data from "./../files.json";
 
 let files = data;
 
