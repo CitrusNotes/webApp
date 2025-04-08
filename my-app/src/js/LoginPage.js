@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import './../styling/LoginPage.css';
+import { useNavigate } from 'react-router-dom';
 
-function LoginPage({ setIsAuthenticated }) {
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     // Dummy login logic (Replace with real authentication later)
     if (username === 'sturman' && password === 'heisthegoat') {
-      setIsAuthenticated(true);
+      navigate("/file-browser");
     } else {
       setError('Invalid username or password');
     }
