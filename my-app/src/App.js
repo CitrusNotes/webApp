@@ -4,6 +4,7 @@ import data from "./files.json"
 
 let files = data;
 
+// React function for folder buttons
 function FolderButton({ imageSrc, folderName, currentPath, setCurrentPath }) {
   return (
     <button className="folder-button" 
@@ -21,6 +22,7 @@ function FolderButton({ imageSrc, folderName, currentPath, setCurrentPath }) {
   );
 }
 
+// React function for File Buttons
 function FileButton({ fileName, currentPath, filteredFiles }) {
   const filePath = ["", ...currentPath, fileName + "." + filteredFiles.find(entry => entry.name === fileName).type].join("/")
   const [showPdf, setShowPdf] = useState(false);
@@ -48,6 +50,7 @@ function FileButton({ fileName, currentPath, filteredFiles }) {
   );
 }
 
+// React Function for search bar
 function SearchBar( { setFilteredFiles, currentPath } ) {
   return (
     <div className="searchbar">
@@ -60,6 +63,7 @@ function SearchBar( { setFilteredFiles, currentPath } ) {
   );
 }
 
+// React function for Logo
 function Logo() {
   return (
     <div>  
@@ -78,6 +82,7 @@ function filterFiles( { setFilteredFiles, searchTerm, currentPath } ) {
   setFilteredFiles(filteredData);
 }
 
+// function 
 function getCurrentFolderContents(path) {
   let currentFolder = { contents: files };
   for (let folderName of path) {
@@ -89,6 +94,7 @@ function getCurrentFolderContents(path) {
   return currentFolder.contents || [];
 };
 
+// React function for directory header
 function DirectoryHeader({ currentPath, setCurrentPath }) {
   const path = ["Drive", ...currentPath];
   if(path.length === 1) {
@@ -107,11 +113,17 @@ function DirectoryHeader({ currentPath, setCurrentPath }) {
 
 }
 
+// React function for creating a folder
 function CreateFolder() {
+  const onClick = () => {
+    
+  }
   return(
-    <button>New Folder</button>
+    <button onClick={onClick}>New Folder</button>
   );
 }
+
+
 
 function App() {
   const [filteredFiles, setFilteredFiles] = useState(files);
@@ -123,18 +135,14 @@ function App() {
   }, [currentPath]);
 
   return (
+    // entire page div
     <div className="page">
+      {/* top bar for the page which contains the app name as well as search bar for files */}
       <div className="page-top-bar">
-        <Logo/>
+        <title>Citrus Notes</title>
         <SearchBar setFilteredFiles={setFilteredFiles} currentPath={currentPath}/>
       </div>
-      <div className="page-browse">
-        <div className="file-directory">
-          <div className="file-directory-options">
-            <button className="file-directory-button">Recent</button>
-            <button className="file-directory-button">Cutrus Drive</button>
-          </div>
-        </div>
+      {/* main section of the page which is used for browsing directories and viewing files */}
         <div className="file-explorer">
           <DirectoryHeader
             currentPath={currentPath}
@@ -169,7 +177,6 @@ function App() {
             })}
           </div>
         </div>
-      </div>
     </div>
   );
 }
