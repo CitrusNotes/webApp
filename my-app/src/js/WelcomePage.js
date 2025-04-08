@@ -1,5 +1,5 @@
 import React from 'react';
-import './WelcomePage.css';
+import './../styling/WelcomePage.css';
 
 function WelcomePage({ setShowWelcomePage }) {
   return (
